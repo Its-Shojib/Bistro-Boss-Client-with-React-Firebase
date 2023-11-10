@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import img from '../assets/icon/Icon.png'
+// import img from '../assets/icon/Icon.png'
 // import img2 from '../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png'
 
 const Navbar = () => {
