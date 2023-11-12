@@ -1,10 +1,10 @@
+import Banner from "../../Shared Components/Banner";
 
 
 const Home = () => {
     return (
         <div>
-            
-            <p> Hello, I am Home </p>
+            <Banner></Banner>
         </div>
     )
 }
