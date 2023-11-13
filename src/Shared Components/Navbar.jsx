@@ -8,11 +8,10 @@ const Navbar = () => {
     console.log(user);
     let links = <>
         <li><NavLink to='/'>Home</NavLink></li>
-        <li><NavLink to='/contact-us'>Contact Us</NavLink></li>
-        <li><NavLink to='/dash-board'>Dash Board</NavLink></li>
         <li><NavLink to='/our-menu'>Our Menu</NavLink></li>
         <li><NavLink to='/our-shop/salad'>Our Shop</NavLink></li>
-        <li><NavLink to='/login'>Sign Up</NavLink></li>
+        <li><NavLink to='/contact-us'>Contact Us</NavLink></li>
+        <li><NavLink to='/dash-board'>Dash Board</NavLink></li>
     </>
     return (
         <div className="navbar fixed z-10 bg-black bg-opacity-30 text-white max-w-screen-xl mx-auto">

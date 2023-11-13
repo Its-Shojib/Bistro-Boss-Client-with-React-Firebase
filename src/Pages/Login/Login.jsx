@@ -1,21 +1,26 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLockPasswordFill } from 'react-icons/ri';
-import { useContext, useState } from "react";
-import { FaEyeSlash, FaEye } from 'react-icons/fa';
+import { useContext, useEffect, useState } from "react";
+import { FaEyeSlash, FaEye,FaClosedCaptioning } from 'react-icons/fa';
 import Lottie from "lottie-react";
 import Swal from 'sweetalert2';
 
 import animation from '../../assets/loginAnimation.json'
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-
+import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 
 const Login = () => {
     let [showPassword, setShowPassword] = useState(false);
+    const [disabled, setDisabled] = useState(true);
     let { SignInUser, googleSignIn } = useContext(AuthContext)
     let navigate = useNavigate()
     let location = useLocation();
+
+    useEffect(() => {
+        loadCaptchaEnginge(6);
+    }, [])
 
     let handleLogin = (e) => {
         e.preventDefault();
@@ -41,6 +46,16 @@ const Login = () => {
                     text: `${error.message}`,
                 })
             })
+    }
+
+    let handleCaptchaText = (e) =>{
+        const user_captcha_value = e.target.value;
+        if (validateCaptcha(user_captcha_value)) {
+            setDisabled(false);
+        }
+        else {
+            setDisabled(true)
+        }
     }
     let handleGoogleLogin = () => {
         googleSignIn()
@@ -93,10 +108,20 @@ const Login = () => {
                         <span onClick={() => setShowPassword(!showPassword)} className="absolute right-3 bottom-4">{showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}</span>
                     </div>
                     <hr className="my-3" />
-                    <p className="cursor-pointer text-right underline my-3">Forgot password?</p>
+                    <div className="w-full"><LoadCanvasTemplate/></div>
+                    <div className="relative">
+                        <p className="text-left text-lg font-semibold">User Captcha</p>
+                        <FaClosedCaptioning className="absolute bottom-4 left-2"></FaClosedCaptioning>
+                        <input onBlur={handleCaptchaText} className="w-full p-2 pl-7 text-black rounded-lg my-1"
+                            type="text"
+                            name="captcha"
+                            placeholder="Type the text captcha"
+                            required />
+                    </div>
+                    <hr className="my-3" />
 
-                    <button
-                        className="bg-gradient-to-r from-fuchsia-500 to-violet-500 w-full py-2 text-white font-semibold text-lg rounded-xl" type="submit">
+                    <button disabled={disabled}
+                        className=" btn btn-outline w-full" type="submit">
                         Login</button>
 
                 </form>
