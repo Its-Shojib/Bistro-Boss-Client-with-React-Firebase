@@ -4,7 +4,6 @@ import Section_Title from "../../Shared Components/Section_Title";
 import Category from "./Category";
 import Chef_Service from "./Chef_Service";
 import Popular from "../../Shared Components/Popular";
-import Section_Title from './../../Shared Components/Section_Title';
 
 
 const Home = () => {
@@ -28,6 +27,11 @@ const Home = () => {
             <section>
                 <Section_Title title={'FROM OUR MENU'} subTitle={'Check it out'}></Section_Title>
                 <Popular></Popular>
+            </section>
+            <section>
+                <div className="bg-black text-white flex justify-center items-center w-10/12 mx-auto h-48 my-10">
+                    <h1 className="text-3xl font-medium">Call Us: +8801790407979</h1>
+                </div>
             </section>
             <section>
                 
