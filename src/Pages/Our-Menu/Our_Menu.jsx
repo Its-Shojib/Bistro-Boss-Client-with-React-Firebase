@@ -11,11 +11,10 @@ import img4 from '../../assets/menu/salad-bg.jpg'
 import img5 from '../../assets/menu/soup-bg.jpg'
 
 const Our_Menu = () => {
-    let [menu, loading] = useMenu();
-    let popular = menu.filter(item => item.category === 'popular');
+    let [menu] = useMenu();
+
     let dessert = menu.filter(item => item.category === 'dessert');
     let offered = menu.filter(item => item.category === 'offered');
-    let drinks = menu.filter(item => item.category === 'drinks');
     let salad = menu.filter(item => item.category === 'salad');
     let pizza = menu.filter(item => item.category === 'pizza');
     let soup = menu.filter(item => item.category === 'soup');
@@ -37,7 +36,8 @@ const Our_Menu = () => {
                         </MenuItem>)
                     }
                 </div>
-                <button className="btn btn-outline border-0 border-b-4 block mx-auto mt-10"><Link to='/our-menu'>Order your favorite food</Link></button>
+                <Link to='/our-shop/salad'><button className="btn btn-outline border-0 border-b-4 block mx-auto mt-10">Order your favorite food</button></Link>
+                
             </section>
             {/* Dessert */}
             <section className="mb-10">
@@ -50,7 +50,7 @@ const Our_Menu = () => {
                         </MenuItem>)
                     }
                 </div>
-                <button className="btn btn-outline border-0 border-b-4 block mx-auto mt-10"><Link to='/our-menu'>Order your favorite food</Link></button>
+                <Link to='/our-shop/dessert'><button className="btn btn-outline border-0 border-b-4 block mx-auto mt-10">Order your favorite food</button></Link>
             </section>
             {/* PIZZA */}
             <section className="mb-10">
@@ -63,7 +63,7 @@ const Our_Menu = () => {
                         </MenuItem>)
                     }
                 </div>
-                <button className="btn btn-outline border-0 border-b-4 block mx-auto mt-10"><Link to='/our-menu'>Order your favorite food</Link></button>
+                <Link to='/our-shop/pizza'><button className="btn btn-outline border-0 border-b-4 block mx-auto mt-10">Order your favorite food</button></Link>
             </section>
             {/* Salad */}
             <section className="mb-10">
@@ -76,11 +76,11 @@ const Our_Menu = () => {
                         </MenuItem>)
                     }
                 </div>
-                <button className="btn btn-outline border-0 border-b-4 block mx-auto mt-10"><Link to='/our-menu'>Order your favorite food</Link></button>
+                <Link to='/our-shop/salad'><button className="btn btn-outline border-0 border-b-4 block mx-auto mt-10">Order your favorite food</button></Link>
             </section>
             {/* Soups */}
             <section className="mb-10">
-                <Section_Cover img={img4} title='Soups' desc='Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.' />
+                <Section_Cover img={img5} title='Soups' desc='Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.' />
                 <div className="grid grid-cols-1 md:grid-cols-2 w-10/12 mx-auto gap-10">
                     {
                         soup.map(item => <MenuItem
@@ -89,7 +89,7 @@ const Our_Menu = () => {
                         </MenuItem>)
                     }
                 </div>
-                <button className="btn btn-outline border-0 border-b-4 block mx-auto mt-10"><Link to='/our-menu'>Order your favorite food</Link></button>
+                <Link to='/our-shop/soup'><button className="btn btn-outline border-0 border-b-4 block mx-auto mt-10">Order your favorite food</button></Link>
             </section>
         </div>
     )

@@ -8,7 +8,7 @@ const Navbar = () => {
         <li><NavLink to='/contact-us'>Contact Us</NavLink></li>
         <li><NavLink to='/dash-board'>Dash Board</NavLink></li>
         <li><NavLink to='/our-menu'>Our Menu</NavLink></li>
-        <li><NavLink to='/our-shop'>Our Shop</NavLink></li>
+        <li><NavLink to='/our-shop/salad'>Our Shop</NavLink></li>
         {/* <li><NavLink to='myCart'><img className="w-8 " src={img2} alt="" /></NavLink></li> */}
         <li><NavLink to='/login'>Sign Up</NavLink></li>
         {/* <li><NavLink to='/logout'>Sign Out</NavLink></li> */}
