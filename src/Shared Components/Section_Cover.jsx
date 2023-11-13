@@ -2,7 +2,7 @@ import { Parallax, Background } from 'react-parallax';
 
 const Section_Cover = ({ img, title, desc }) => {
     return (
-        <div>
+        <div className='mb-10'>
             <Parallax
                 blur={{ min: -50, max: 50 }}
                 bgImage={img}

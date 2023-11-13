@@ -13,15 +13,6 @@ const Our_Menu = () => {
             <section>
                 <Section_Cover img={img1} title='OUR MENU' desc='Would you like to try a dish?' />
             </section>
-            <section>
-                <Section_Cover img={img1} title='OUR MENU' desc='Would you like to try a dish?' />
-            </section>
-            <section>
-                <Section_Cover img={img1} title='OUR MENU' desc='Would you like to try a dish?' />
-            </section>
-            <section>
-                <Section_Cover img={img1} title='OUR MENU' desc='Would you like to try a dish?' />
-            </section>
         </div>
     )
 }
