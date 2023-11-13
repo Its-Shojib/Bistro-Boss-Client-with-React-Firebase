@@ -6,10 +6,7 @@ import useMenu from "../Hooks/useMenu";
 
 const Popular = () => {
     let [menu] = useMenu();
-
     let popular = menu.filter(item => item.category === 'popular')
-
-    console.log(menu);
     return (
         <div>
             <div className="grid grid-cols-1 md:grid-cols-2 w-10/12 mx-auto gap-10">
