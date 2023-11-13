@@ -1,5 +1,5 @@
 
-
+import PropTypes from 'prop-types';
 const FoodCard = ({item}) => {
     let {name,image,price,recipe} = item;
     return (
@@ -17,5 +17,8 @@ const FoodCard = ({item}) => {
             </div>
         </div>
     )
+}
+FoodCard.propTypes = {
+    item: PropTypes.node,
 }
 export default FoodCard;
