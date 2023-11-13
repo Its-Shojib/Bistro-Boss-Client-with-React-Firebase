@@ -25,7 +25,7 @@ const Popular = () => {
                     </MenuItem>)
                 }
             </div>
-            <button className="btn btn-outline block mx-auto mt-10"><Link to='/our-menu'>View full menu</Link></button>
+            <button className="btn btn-outline border-0 border-b-4 block mx-auto mt-10"><Link to='/our-menu'>View full menu</Link></button>
         </div>
     )
 }

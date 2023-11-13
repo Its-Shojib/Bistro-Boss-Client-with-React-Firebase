@@ -4,6 +4,7 @@ import Section_Title from "../../Shared Components/Section_Title";
 import Category from "./Category";
 import Chef_Service from "./Chef_Service";
 import Popular from "../../Shared Components/Popular";
+import Fetuared from "./Fetuared";
 
 
 const Home = () => {
@@ -34,7 +35,7 @@ const Home = () => {
                 </div>
             </section>
             <section>
-                
+                <Fetuared></Fetuared>
             </section>
         </div>
     )
