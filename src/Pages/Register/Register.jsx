@@ -13,12 +13,16 @@ import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import auth from "../../Firebase/Firebase.config";
 
+import { useForm } from "react-hook-form"
 
 
 const Register = () => {
 
     let [showPassword, setShowPassword] = useState(false);
-    let { user,setUser,createUser, googleSignIn } = useContext(AuthContext);
+    let { user, setUser, createUser, googleSignIn } = useContext(AuthContext);
+
+    const { register, handleSubmit, formState: { errors }, } = useForm();
+    const onSubmit = (data) => console.log(data);
 
     let navigate = useNavigate()
     let handleCreateUser = (e) => {
@@ -61,7 +65,7 @@ const Register = () => {
                     displayName: myname, photoURL: myphoto
                 })
                     .then(() => {
-                        setUser({...user, photoURL: myphoto,displayName:myname});
+                        setUser({ ...user, photoURL: myphoto, displayName: myname });
                         Swal.fire({
                             title: 'Success!',
                             text: 'User Created Successfully',
@@ -109,15 +113,16 @@ const Register = () => {
             </Helmet>
             <div className="bg-gray-400 w-full md:w-5/12 text-center p-10 rounded-lg">
                 <h2 className="text-3xl font-bold mb-2">Register Now!</h2>
-                <form onSubmit={handleCreateUser}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="relative">
                         <p className="text-left text-lg font-semibold">User Name</p>
                         <BsFillPersonFill className="absolute bottom-4 left-2"></BsFillPersonFill>
                         <input className="w-full p-2 pl-7 text-black rounded-lg my-1"
                             type="text"
-                            name="name"
-                            placeholder="Type your name" required
+                            {...register("name", { required: true })}
+                            placeholder="Type your name"
                         />
+                        {errors?.name && <span className='text-red-600'>Name is required</span>}
                     </div>
                     <hr className="my-2" />
                     <div className="relative">
@@ -125,9 +130,10 @@ const Register = () => {
                         <BsFillFileImageFill className="absolute bottom-4 left-2"></BsFillFileImageFill>
                         <input className="w-full p-2 pl-7 text-black rounded-lg my-1"
                             type="text"
-                            name="image"
-                            placeholder="Paste Image Url" required
+                            {...register("img", { required: true })}
+                            placeholder="Paste Image Url"
                         />
+                        {errors?.img && <span className='text-red-600'>Image is required</span>}
                     </div>
                     <hr className="my-2" />
                     <div className="relative">
@@ -135,9 +141,10 @@ const Register = () => {
                         <AiOutlineMail className="absolute bottom-4 left-2"></AiOutlineMail>
                         <input className="w-full p-2 pl-7 text-black rounded-lg my-1"
                             type="email"
-                            name="email"
+                            {...register("email", { required: true })}
                             placeholder="Type your email"
-                            required />
+                        />
+                        {errors?.email && <span className='text-red-600'>Email is required</span>}
                     </div>
                     <hr className="my-2" />
                     <div className="relative">
@@ -145,9 +152,12 @@ const Register = () => {
                         <RiLockPasswordFill className="absolute bottom-4 left-2"></RiLockPasswordFill>
                         <input className="w-full p-2 pl-6 text-black rounded-lg my-1"
                             type={showPassword ? 'text' : 'password'}
-                            name="password"
-                            placeholder="Type your password" required
+                            {...register("password", { required: true, minLength: 6, maxLength: 20 })}
+                            placeholder="Type your password"
                         />
+                        {/* {errors?.password.type === 'required' && <span className='text-red-600'>Password is required</span>}
+                        {errors?.password.type === 'minLength' && <span className='text-red-600'>Password is required</span>}
+                        {errors?.password.type === 'maxLength' && <span className='text-red-600'>Password is required</span>} */}
                         <span onClick={() => setShowPassword(!showPassword)} className="absolute right-3 bottom-4">{showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}</span>
                     </div>
                     <hr className="my-2" />

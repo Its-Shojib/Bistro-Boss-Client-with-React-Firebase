@@ -5,7 +5,7 @@ import Footer from './../Shared Components/Footer';
 
 const MainLayout = () => {
     let location = useLocation();
-    let noHedFoot = location.pathname.includes('/login');
+    let noHedFoot = location.pathname.includes('/login') || location.pathname.includes('/register');
     return (
         <div>
             {noHedFoot || <div className="max-w-screen-xl mx-auto">
