@@ -5,6 +5,7 @@ import Category from "./Category";
 import Chef_Service from "./Chef_Service";
 import Popular from "../../Shared Components/Popular";
 import Fetuared from "./Fetuared";
+import Testimonials from './Testimonials';
 
 
 const Home = () => {
@@ -36,6 +37,10 @@ const Home = () => {
             </section>
             <section>
                 <Fetuared></Fetuared>
+            </section>
+            <section>
+                <Section_Title title={'TESTIMONIALS'} subTitle={'What Our Clients Say'}></Section_Title>
+                <Testimonials></Testimonials>
             </section>
         </div>
     )
