@@ -13,12 +13,11 @@ const Navbar = () => {
         <li><NavLink to='/our-menu'>Our Menu</NavLink></li>
         <li><NavLink to='/our-shop/salad'>Our Shop</NavLink></li>
         <li>
-            <Link to='/'><AiOutlineShoppingCart className="text-xl"></AiOutlineShoppingCart>
+            <Link to='/dashboard/myCart'><AiOutlineShoppingCart className="text-xl"></AiOutlineShoppingCart>
                 <div className="badge badge-secondary">+{cart.length}</div>
             </Link>
         </li>
         <li><NavLink to='/contact-us'>Contact Us</NavLink></li>
-        <li><NavLink to='/dash-board'>Dash Board</NavLink></li>
     </>
     return (
         <div className="navbar fixed z-10 bg-black bg-opacity-30 text-white max-w-screen-xl mx-auto">

@@ -7,6 +7,7 @@ import 'react-tabs/style/react-tabs.css';
 import useMenu from '../../Hooks/useMenu';
 import FoodCard from '../../Shared Components/FoodCard';
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const Our_Shop = () => {
     let categories = ['salad','pizza','soup','dessert','drinks'];
@@ -22,6 +23,9 @@ const Our_Shop = () => {
     let soup = menu.filter(item => item.category === 'soup');
     return (
         <div>
+            <Helmet>
+                <title>Bistro Boss | Our Shop</title>
+            </Helmet>
             <Section_Cover img={img1} title='OUR SHOP' desc='Would you like to try a dish?' />
 
             <Tabs className={'text-center w-full md:w-10/12 mx-auto'} defaultIndex={tabIndex} onSelect={(index) => setTabIndex(index)}>
