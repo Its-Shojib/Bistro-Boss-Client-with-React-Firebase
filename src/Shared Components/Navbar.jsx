@@ -2,18 +2,19 @@ import { Link, NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import useCart from "../Hooks/useCart";
 
 
 const Navbar = () => {
     let { user, Logout } = useContext(AuthContext);
-    console.log(user);
+    let [cart]=useCart();
     let links = <>
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/our-menu'>Our Menu</NavLink></li>
         <li><NavLink to='/our-shop/salad'>Our Shop</NavLink></li>
         <li>
             <Link to='/'><AiOutlineShoppingCart className="text-xl"></AiOutlineShoppingCart>
-                <div className="badge badge-secondary">+0</div>
+                <div className="badge badge-secondary">+{cart.length}</div>
             </Link>
         </li>
         <li><NavLink to='/contact-us'>Contact Us</NavLink></li>
