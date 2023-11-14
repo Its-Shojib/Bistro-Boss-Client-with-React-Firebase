@@ -7,37 +7,35 @@ import { useContext, useState } from "react";
 import { FaEyeSlash, FaEye } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import Lottie from "lottie-react";
-import { updateProfile } from 'firebase/auth'
 import animation from '../../assets/SignUpAnimation.json'
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
-import auth from "../../Firebase/Firebase.config";
 
 import { useForm } from "react-hook-form"
-
 
 const Register = () => {
 
     let [showPassword, setShowPassword] = useState(false);
-    let { user, setUser, createUser, googleSignIn } = useContext(AuthContext);
+    let { createUser, googleSignIn, updateUserProfile } = useContext(AuthContext);
 
     const { register, handleSubmit, formState: { errors }, } = useForm();
     const onSubmit = (data) => {
         createUser(data?.email, data?.password)
             .then(() => {
-                updateProfile(auth.currentUser, {
-                    displayName: data?.name, photoURL: data?.img
-                })
+                updateUserProfile(data?.name, data?.img)
                     .then(() => {
-                        setUser({ ...user, photoURL: data?.img, displayName: data?.name });
                         Swal.fire({
-                            title: 'Success!',
-                            text: 'User Created Successfully',
-                            icon: 'Success',
-                            confirmButtonText: 'Cool'
-                        })
+                            position: "top",
+                            icon: "success",
+                            title: "User Created Successfully",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        navigate('/')
                     })
-                navigate('/')
+                    .catch(err => {
+                        console.log(err);
+                    })
             })
             .catch(error => {
                 Swal.fire({

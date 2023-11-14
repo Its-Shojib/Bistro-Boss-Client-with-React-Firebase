@@ -1,6 +1,7 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 
 const Navbar = () => {
@@ -10,6 +11,11 @@ const Navbar = () => {
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/our-menu'>Our Menu</NavLink></li>
         <li><NavLink to='/our-shop/salad'>Our Shop</NavLink></li>
+        <li>
+            <Link to='/'><AiOutlineShoppingCart className="text-xl"></AiOutlineShoppingCart>
+                <div className="badge badge-secondary">+0</div>
+            </Link>
+        </li>
         <li><NavLink to='/contact-us'>Contact Us</NavLink></li>
         <li><NavLink to='/dash-board'>Dash Board</NavLink></li>
     </>
@@ -32,25 +38,25 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end text-white">
-                    {
-                        user && <>
-                            <div className="dropdown dropdown-end">
-                                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                                    <div className="w-10 rounded-full">
-                                        <img src={user?.photoURL} />
-                                    </div>
-                                </label>
-                                <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-gray-500 rounded-box w-28">
-                                    <li>{user.displayName}</li>
-                                </ul>
-                            </div>
-                        </>
-                    }
-                    {
-                        user ? <button onClick={() => Logout().then().catch( ()=> {})} className="bg-red-600 px-4 py-2 rounded-md font-semibold">Log Out</button> : <button className=" bg-green-600 px-4 py-2 rounded-md font-semibold"><NavLink to='/login'>Login</NavLink></button>
-                    }
+                {
+                    user && <>
+                        <div className="dropdown dropdown-end">
+                            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                                <div className="w-10 rounded-full">
+                                    <img src={user?.photoURL} />
+                                </div>
+                            </label>
+                            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-gray-500 rounded-box w-28">
+                                <li>{user.displayName}</li>
+                            </ul>
+                        </div>
+                    </>
+                }
+                {
+                    user ? <button onClick={() => Logout().then().catch(() => { })} className="bg-red-600 px-4 py-2 rounded-md font-semibold">Log Out</button> : <button className=" bg-green-600 px-4 py-2 rounded-md font-semibold"><NavLink to='/login'>Login</NavLink></button>
+                }
 
-                </div>
+            </div>
         </div>
     )
 }
