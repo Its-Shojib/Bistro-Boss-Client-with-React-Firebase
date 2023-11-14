@@ -22,50 +22,14 @@ const Register = () => {
     let { user, setUser, createUser, googleSignIn } = useContext(AuthContext);
 
     const { register, handleSubmit, formState: { errors }, } = useForm();
-    const onSubmit = (data) => console.log(data);
-
-    let navigate = useNavigate()
-    let handleCreateUser = (e) => {
-        e.preventDefault();
-        let myname = e.target.name.value;
-        let myphoto = e.target.image.value;
-        let email = e.target.email.value;
-        let password = e.target.password.value;
-
-        if (password.length < 6) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Password must be more than 6 character',
-            })
-            return;
-        }
-        else if (!/[A-Z]/.test(password)) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Password must at-least one Capital letter',
-            })
-            return;
-        }
-        // eslint-disable-next-line no-useless-escape
-        else if (!/.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-].*/.test(password)) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Password must at-least one Special Charecter',
-            })
-            return;
-        }
-
-
-        createUser(email, password)
+    const onSubmit = (data) => {
+        createUser(data?.email, data?.password)
             .then(() => {
                 updateProfile(auth.currentUser, {
-                    displayName: myname, photoURL: myphoto
+                    displayName: data?.name, photoURL: data?.img
                 })
                     .then(() => {
-                        setUser({ ...user, photoURL: myphoto, displayName: myname });
+                        setUser({ ...user, photoURL: data?.img, displayName: data?.name });
                         Swal.fire({
                             title: 'Success!',
                             text: 'User Created Successfully',
@@ -83,8 +47,9 @@ const Register = () => {
                 })
             })
 
+    };
 
-    }
+    let navigate = useNavigate()
     let handleGoogleLogin = () => {
         googleSignIn()
             .then(result => {
@@ -152,12 +117,22 @@ const Register = () => {
                         <RiLockPasswordFill className="absolute bottom-4 left-2"></RiLockPasswordFill>
                         <input className="w-full p-2 pl-6 text-black rounded-lg my-1"
                             type={showPassword ? 'text' : 'password'}
-                            {...register("password", { required: true, minLength: 6, maxLength: 20 })}
+                            {...register("password", {
+                                required: true,
+                                minLength: 6,
+                                maxLength: 20,
+                                pattern: /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{6,}$/
+                            })}
                             placeholder="Type your password"
                         />
-                        {/* {errors?.password.type === 'required' && <span className='text-red-600'>Password is required</span>}
-                        {errors?.password.type === 'minLength' && <span className='text-red-600'>Password is required</span>}
-                        {errors?.password.type === 'maxLength' && <span className='text-red-600'>Password is required</span>} */}
+                        {errors.password?.type === "required" && (
+                            <span className='text-red-600'>Password is required</span>
+                        )}
+                        {errors?.password?.type === 'minLength' && <span className='text-red-600'>Password must be 6 character long</span>}
+                        {errors.password?.type === "pattern" && (
+                            <span className='text-red-600'>Password must have one uppercase, lowercase,special symbol and a digit</span>
+                        )}
+                        {errors?.password?.type === 'maxLength' && <span className='text-red-600'>Password must be less than 20 character</span>}
                         <span onClick={() => setShowPassword(!showPassword)} className="absolute right-3 bottom-4">{showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}</span>
                     </div>
                     <hr className="my-2" />

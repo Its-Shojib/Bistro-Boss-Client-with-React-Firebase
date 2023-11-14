@@ -2,7 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { useContext, useEffect, useState } from "react";
-import { FaEyeSlash, FaEye,FaClosedCaptioning } from 'react-icons/fa';
+import { FaEyeSlash, FaEye, FaClosedCaptioning } from 'react-icons/fa';
 import Lottie from "lottie-react";
 import Swal from 'sweetalert2';
 
@@ -17,6 +17,7 @@ const Login = () => {
     let { SignInUser, googleSignIn } = useContext(AuthContext)
     let navigate = useNavigate()
     let location = useLocation();
+    let from = location.state?.from?.pathname || '/'
 
     useEffect(() => {
         loadCaptchaEnginge(6);
@@ -37,7 +38,7 @@ const Login = () => {
                     icon: 'Success',
                     confirmButtonText: 'Cool'
                 })
-                navigate('/');
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 Swal.fire({
@@ -48,7 +49,7 @@ const Login = () => {
             })
     }
 
-    let handleCaptchaText = (e) =>{
+    let handleCaptchaText = (e) => {
         const user_captcha_value = e.target.value;
         if (validateCaptcha(user_captcha_value)) {
             setDisabled(false);
@@ -67,7 +68,7 @@ const Login = () => {
                     icon: 'Success',
                     confirmButtonText: 'Cool'
                 })
-                navigate(location.state ? location.state : '/');
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 Swal.fire({
@@ -76,7 +77,6 @@ const Login = () => {
                     text: `${error.message}`,
                 })
             })
-
     }
 
     return (
@@ -108,7 +108,7 @@ const Login = () => {
                         <span onClick={() => setShowPassword(!showPassword)} className="absolute right-3 bottom-4">{showPassword ? <FaEyeSlash></FaEyeSlash> : <FaEye></FaEye>}</span>
                     </div>
                     <hr className="my-3" />
-                    <div className="w-full"><LoadCanvasTemplate/></div>
+                    <div className="w-full"><LoadCanvasTemplate /></div>
                     <div className="relative">
                         <p className="text-left text-lg font-semibold">User Captcha</p>
                         <FaClosedCaptioning className="absolute bottom-4 left-2"></FaClosedCaptioning>
