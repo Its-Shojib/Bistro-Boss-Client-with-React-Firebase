@@ -12,11 +12,13 @@ import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 import { useForm } from "react-hook-form"
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Register = () => {
 
     let [showPassword, setShowPassword] = useState(false);
     let { createUser, googleSignIn, updateUserProfile } = useContext(AuthContext);
+    let axiosPublic = useAxiosPublic();
 
     const { register, handleSubmit, formState: { errors }, } = useForm();
     const onSubmit = (data) => {
@@ -24,14 +26,23 @@ const Register = () => {
             .then(() => {
                 updateUserProfile(data?.name, data?.img)
                     .then(() => {
-                        Swal.fire({
-                            position: "top",
-                            icon: "success",
-                            title: "User Created Successfully",
-                            showConfirmButton: false,
-                            timer: 1500
-                        });
-                        navigate('/')
+                        let user = {
+                            name: data?.name,
+                            email: data?.email
+                        }
+                        axiosPublic.post('/users', user)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    Swal.fire({
+                                        position: "top",
+                                        icon: "success",
+                                        title: "User Created Successfully",
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    navigate('/')
+                                }
+                            })
                     })
                     .catch(err => {
                         console.log(err);
