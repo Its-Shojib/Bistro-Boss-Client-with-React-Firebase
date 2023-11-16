@@ -1,9 +1,10 @@
 
 import { FaBook, FaCalendar, FaCartArrowDown, FaHome, FaPaypal, FaRecordVinyl } from 'react-icons/fa';
 import { NavLink, Outlet } from 'react-router-dom';
+import useAdmin from '../Hooks/useAdmin';
 
 const Dash_Board = () => {
-    let isAdmin = true;
+    let [isAdmin] = useAdmin();
     return (
         <div>
             <div className="max-w-screen-xl mx-auto flex">
