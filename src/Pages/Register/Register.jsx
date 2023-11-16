@@ -13,11 +13,12 @@ import { AuthContext } from "../../AuthProvider/AuthProvider";
 
 import { useForm } from "react-hook-form"
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import Social_Login from "../../Shared Components/Social_Login";
 
 const Register = () => {
 
     let [showPassword, setShowPassword] = useState(false);
-    let { createUser, googleSignIn, updateUserProfile } = useContext(AuthContext);
+    let { createUser, updateUserProfile } = useContext(AuthContext);
     let axiosPublic = useAxiosPublic();
 
     const { register, handleSubmit, formState: { errors }, } = useForm();
@@ -59,27 +60,7 @@ const Register = () => {
     };
 
     let navigate = useNavigate()
-    let handleGoogleLogin = () => {
-        googleSignIn()
-            .then(result => {
-                console.log(result.user);
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'User Created Successfully',
-                    icon: 'Success',
-                    confirmButtonText: 'Cool'
-                })
-                navigate('/')
-            })
-            .catch(error => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: `${error.message}`,
-                })
-            })
 
-    }
     return (
         <div className="flex flex-col md:flex-row gap-5 px-2 justify-center items-center mt-5">
             <Helmet>
@@ -151,10 +132,7 @@ const Register = () => {
 
                 </form>
 
-                <p className="mt-3">Or Sign up using</p>
-                <div className="flex gap-3 justify-center my-3">
-                    <img onClick={handleGoogleLogin} className="w-8 cursor-pointer" src="/google.jpg" alt="" />
-                </div>
+                <Social_Login></Social_Login>
                 <div className="flex gap-3 justify-center mt-3">
                     <p>Already have an account?</p>
                     <Link className="underline text-lg text-blue-600" to='/login'>Login now</Link>

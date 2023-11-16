@@ -1,21 +1,23 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineMail } from 'react-icons/ai';
 import { RiLockPasswordFill } from 'react-icons/ri';
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaEyeSlash, FaEye, FaClosedCaptioning } from 'react-icons/fa';
 import Lottie from "lottie-react";
 import Swal from 'sweetalert2';
 
 import animation from '../../assets/loginAnimation.json'
 import { Helmet } from "react-helmet-async";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
+
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
+import Social_Login from "../../Shared Components/Social_Login";
+import useAuth from "../../Hooks/useAuth";
 
 const Login = () => {
     let [showPassword, setShowPassword] = useState(false);
     const [disabled, setDisabled] = useState(true);
-    let { SignInUser, googleSignIn } = useContext(AuthContext)
-    let navigate = useNavigate()
+    let { SignInUser } = useAuth();
+    let navigate = useNavigate();
     let location = useLocation();
     let from = location.state?.from?.pathname || '/'
 
@@ -57,26 +59,6 @@ const Login = () => {
         else {
             setDisabled(true)
         }
-    }
-    let handleGoogleLogin = () => {
-        googleSignIn()
-            .then(result => {
-                console.log(result.user);
-                Swal.fire({
-                    title: 'Success!',
-                    text: 'User Login Successfully',
-                    icon: 'Success',
-                    confirmButtonText: 'Cool'
-                })
-                navigate(from, { replace: true });
-            })
-            .catch(error => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: `${error.message}`,
-                })
-            })
     }
 
     return (
@@ -126,10 +108,7 @@ const Login = () => {
 
                 </form>
 
-                <p className="mt-5">Or Sign up using</p>
-                <div className="flex gap-3 justify-center my-3">
-                    <img onClick={handleGoogleLogin} className="w-8 cursor-pointer" src="/google.jpg" alt="" />
-                </div>
+                <Social_Login></Social_Login>
                 <div className="flex gap-3 justify-center mt-8">
                     <p>New to this site?</p>
                     <Link className="underline text-lg text-blue-600" to='/register'>Sign Up</Link>
