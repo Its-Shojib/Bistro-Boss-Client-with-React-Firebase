@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
@@ -11,7 +11,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 
 const UpdateItem = () => {
     const {name, category, recipe, price, _id} = useLoaderData();
-
+    let navigate = useNavigate()
 
     const { register, handleSubmit } = useForm();
     const axiosPublic = useAxiosPublic();
@@ -41,12 +41,13 @@ const UpdateItem = () => {
                 // show success popup
                 // reset();
                 Swal.fire({
-                    position: "top-end",
+                    position: "top-middle",
                     icon: "success",
                     title: `${data.name} is updated to the menu.`,
                     showConfirmButton: false,
                     timer: 1500
                   });
+                  navigate('/dashboard/manage-item')
             }
         }
         console.log( 'with image url', res.data);
