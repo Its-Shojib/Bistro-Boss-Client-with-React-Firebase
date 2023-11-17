@@ -83,6 +83,6 @@ const FoodCard = ({ item }) => {
     )
 }
 FoodCard.propTypes = {
-    item: PropTypes.node,
+    item: PropTypes.object,
 }
 export default FoodCard;

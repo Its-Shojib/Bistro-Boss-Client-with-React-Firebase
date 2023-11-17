@@ -12,6 +12,7 @@ const Navbar = () => {
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/our-menu'>Our Menu</NavLink></li>
         <li><NavLink to='/our-shop/salad'>Our Shop</NavLink></li>
+        <li><NavLink to='/dashboard'>DashBoard</NavLink></li>
         <li>
             <Link to='/dashboard/myCart'><AiOutlineShoppingCart className="text-xl"></AiOutlineShoppingCart>
                 <div className="badge badge-secondary">+{cart.length}</div>

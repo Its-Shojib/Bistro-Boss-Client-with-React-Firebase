@@ -11,6 +11,19 @@ import Dash_Board from './../Layout/Dash_Board';
 import MyCart from "../Pages/Dash-Board/MyCart";
 import PrivateRoutes from './PrivateRoutes';
 import All_User from "../Pages/Dash-Board/All_User";
+import AddItem from './../Pages/AddItem/AddItem';
+import ManageItem from './../Pages/ManageItem/ManageItem';
+import ManageBooking from './../Pages/ManageBooking/ManageBooking';
+import Menu from './../Pages/Menu/Menu';
+import Shop from './../Pages/Shop/Shop';
+import Contact from './../Pages/Contact/Contact';
+import Payment from "../Pages/Payment/Payment";
+import Reservation from "../Pages/Reservation/Reservation";
+import AddReview from "../Pages/AddReview/AddReview";
+import MyBooking from "../Pages/MyBookings/MyBooking";
+import AdminRoute from './AdminRoute';
+import UpdateItem from "../Pages/UpdateItem/UpdateItem";
+
 
 
 const router = createBrowserRouter([
@@ -46,16 +59,61 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path:'/dashboard',
+        path: '/dashboard',
         element: <PrivateRoutes><Dash_Board></Dash_Board></PrivateRoutes>,
-        children:[
+        children: [
             {
-                path:'/dashboard/myCart',
+                path: '/dashboard/myCart',
                 element: <MyCart></MyCart>
             },
             {
-                path:'/dashboard/all-user',
-                element: <All_User></All_User>
+                path: 'all-user',
+                element: <AdminRoute><All_User></All_User></AdminRoute>
+            },
+            {
+                path: 'add-item',
+                element: <AdminRoute><AddItem></AddItem></AdminRoute>
+            },
+            {
+                path: 'manage-item',
+                element: <AdminRoute><ManageItem></ManageItem></AdminRoute>
+            },
+            {
+                path: 'manage-booking',
+                element: <AdminRoute><ManageBooking></ManageBooking></AdminRoute>
+            },
+            {
+                path: 'menu',
+                element: <PrivateRoutes><Menu></Menu></PrivateRoutes>
+            },
+            {
+                path: 'shop',
+                element: <PrivateRoutes><Shop></Shop></PrivateRoutes>
+            },
+            {
+                path: 'contact',
+                element: <PrivateRoutes><Contact></Contact></PrivateRoutes>
+            },
+            {
+                path: 'payment',
+                element: <PrivateRoutes><Payment></Payment></PrivateRoutes>
+            },
+            {
+                path: 'reservation',
+                element: <PrivateRoutes><Reservation></Reservation></PrivateRoutes>
+            },
+            {
+                path: 'add-review',
+                element: <PrivateRoutes><AddReview></AddReview></PrivateRoutes>
+            },
+            {
+                path: 'my-booking',
+                element: <PrivateRoutes><MyBooking></MyBooking></PrivateRoutes>
+            },
+            {
+                path: '/dashboard/updateItem/:id',
+                element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
+                loader: ({ params }) => fetch(`http://localhost:5000/menu/${params.id}`)
             },
         ]
     }
