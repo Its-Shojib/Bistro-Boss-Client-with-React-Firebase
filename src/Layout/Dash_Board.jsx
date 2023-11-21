@@ -2,9 +2,12 @@
 import { FaBook, FaCalendar, FaCartArrowDown, FaHome, FaPaypal, FaRecordVinyl } from 'react-icons/fa';
 import { NavLink, Outlet } from 'react-router-dom';
 import useAdmin from '../Hooks/useAdmin';
+import useCart from '../Hooks/useCart';
+
 
 const Dash_Board = () => {
     let [isAdmin] = useAdmin();
+    let [cart] = useCart()
     return (
         <div>
             <div className="max-w-screen-xl mx-auto flex">
@@ -36,7 +39,7 @@ const Dash_Board = () => {
 
                                 <li><NavLink to='/dashboard/payment-history'><FaPaypal></FaPaypal>Payment History</NavLink></li>
 
-                                <li><NavLink to='/dashboard/myCart' ><FaCartArrowDown></FaCartArrowDown>My Cart</NavLink></li>
+                                <li><NavLink to='/dashboard/myCart' ><FaCartArrowDown></FaCartArrowDown>{`My Cart (${cart.length})`}</NavLink></li>
 
                                 <li><NavLink to='/dashboard/add-review'><FaRecordVinyl></FaRecordVinyl>Add Review</NavLink></li>
 
