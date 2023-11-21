@@ -3,8 +3,9 @@ import Section_Title from './../../Shared Components/Section_Title';
 import useCart from './../../Hooks/useCart';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
+import { Link } from 'react-router-dom';
 const MyCart = () => {
-    let [cart,refetch] = useCart();
+    let [cart, refetch] = useCart();
     let axiosSecure = useAxiosSecure()
     let totalPrice = cart.reduce((acumulator, currentItem) => {
         return acumulator + currentItem.price;
@@ -24,12 +25,12 @@ const MyCart = () => {
                 axiosSecure.delete(`/carts/${id}`)
                     .then(res => {
                         if (res.data.deletedCount > 0) {
-                              Swal.fire({
+                            Swal.fire({
                                 title: "Deleted!",
                                 text: "Your file has been deleted.",
                                 icon: "success"
-                              });
-                              refetch();
+                            });
+                            refetch();
                         }
                     })
 
@@ -49,7 +50,11 @@ const MyCart = () => {
                     <div className='flex justify-between'>
                         <h1 className='text-2xl font-bold'>Total Order: {cart.length}</h1>
                         <h2 className='text-2xl font-bold'>Total Price: ${totalPrice}</h2>
-                        <button className='btn bg-[#D1A054] '>Pay</button>
+                        {
+                            cart.length > 0 ? <Link to='/dashboard/payment'>
+                                <button className='btn bg-[#D1A054] '>Pay</button>
+                            </Link> : <button disabled className='btn bg-[#D1A054] '>Pay</button>
+                        }
                     </div>
                     <div className="overflow-x-auto my-10">
                         <table className="table">

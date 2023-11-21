@@ -32,7 +32,9 @@ const Dash_Board = () => {
 
                                 <li><NavLink to='/dashboard/reservation'><FaCalendar></FaCalendar> Reservation</NavLink></li>
 
-                                <li><NavLink to='/dashboard/payment'><FaPaypal></FaPaypal>Payment History</NavLink></li>
+                                <li><NavLink to='/dashboard/payment'><FaCalendar></FaCalendar> Payment</NavLink></li>
+
+                                <li><NavLink to='/dashboard/payment-history'><FaPaypal></FaPaypal>Payment History</NavLink></li>
 
                                 <li><NavLink to='/dashboard/myCart' ><FaCartArrowDown></FaCartArrowDown>My Cart</NavLink></li>
 

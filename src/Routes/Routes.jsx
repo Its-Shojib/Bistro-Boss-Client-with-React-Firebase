@@ -23,6 +23,7 @@ import AddReview from "../Pages/AddReview/AddReview";
 import MyBooking from "../Pages/MyBookings/MyBooking";
 import AdminRoute from './AdminRoute';
 import UpdateItem from "../Pages/UpdateItem/UpdateItem";
+import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 
 
 
@@ -97,6 +98,10 @@ const router = createBrowserRouter([
             {
                 path: 'payment',
                 element: <PrivateRoutes><Payment></Payment></PrivateRoutes>
+            },
+            {
+                path: 'payment-history',
+                element: <PrivateRoutes><PaymentHistory></PaymentHistory></PrivateRoutes>
             },
             {
                 path: 'reservation',
