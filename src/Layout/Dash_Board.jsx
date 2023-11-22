@@ -19,7 +19,7 @@ const Dash_Board = () => {
                     {
                         isAdmin ? <>
                             <ul className='menu flex flex-col mt-10 px-6 space-y-3'>
-                                <li><NavLink to='/'><FaHome></FaHome> Admin Home</NavLink></li>
+                                <li><NavLink to='/dashboard/admin-home'><FaHome></FaHome> Admin Home</NavLink></li>
 
                                 <li><NavLink to='/dashboard/add-item'><FaCalendar></FaCalendar> Add Item</NavLink></li>
 

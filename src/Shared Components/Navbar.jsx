@@ -3,16 +3,23 @@ import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import useCart from "../Hooks/useCart";
+import useAdmin from "../Hooks/useAdmin";
 
 
 const Navbar = () => {
     let { user, Logout } = useContext(AuthContext);
+    let [isAdmin] = useAdmin();
     let [cart]=useCart();
     let links = <>
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/our-menu'>Our Menu</NavLink></li>
         <li><NavLink to='/our-shop/salad'>Our Shop</NavLink></li>
-        <li><NavLink to='/dashboard'>DashBoard</NavLink></li>
+        {
+            user && isAdmin && <li><NavLink to='/dashboard/admin-home'>DashBoard</NavLink></li>
+        }
+        {
+            user && !isAdmin && <li><NavLink to='/dashboard/user-home'>DashBoard</NavLink></li>
+        }
         <li>
             <Link to='/dashboard/myCart'><AiOutlineShoppingCart className="text-xl"></AiOutlineShoppingCart>
                 <div className="badge badge-secondary">+{cart.length}</div>

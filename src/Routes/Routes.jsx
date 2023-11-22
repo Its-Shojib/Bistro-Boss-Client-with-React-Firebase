@@ -24,6 +24,8 @@ import MyBooking from "../Pages/MyBookings/MyBooking";
 import AdminRoute from './AdminRoute';
 import UpdateItem from "../Pages/UpdateItem/UpdateItem";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
+import AdminHome from "../Pages/AdminHome/AdminHome";
+import UserHome from "../Pages/UserHome/UserHome";
 
 
 
@@ -64,7 +66,15 @@ const router = createBrowserRouter([
         element: <PrivateRoutes><Dash_Board></Dash_Board></PrivateRoutes>,
         children: [
             {
-                path: '/dashboard/myCart',
+                path: 'admin-home',
+                element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
+            },
+            {
+                path: 'user-home',
+                element: <PrivateRoutes><UserHome></UserHome></PrivateRoutes>
+            },
+            {
+                path: 'myCart',
                 element: <MyCart></MyCart>
             },
             {
