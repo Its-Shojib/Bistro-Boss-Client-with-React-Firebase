@@ -27,8 +27,6 @@ import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import AdminHome from "../Pages/AdminHome/AdminHome";
 import UserHome from "../Pages/UserHome/UserHome";
 
-
-
 const router = createBrowserRouter([
     {
         path: "/",
@@ -65,21 +63,10 @@ const router = createBrowserRouter([
         path: '/dashboard',
         element: <PrivateRoutes><Dash_Board></Dash_Board></PrivateRoutes>,
         children: [
+            //admin route
             {
                 path: 'admin-home',
                 element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
-            },
-            {
-                path: 'user-home',
-                element: <PrivateRoutes><UserHome></UserHome></PrivateRoutes>
-            },
-            {
-                path: 'myCart',
-                element: <MyCart></MyCart>
-            },
-            {
-                path: 'all-user',
-                element: <AdminRoute><All_User></All_User></AdminRoute>
             },
             {
                 path: 'add-item',
@@ -92,6 +79,24 @@ const router = createBrowserRouter([
             {
                 path: 'manage-booking',
                 element: <AdminRoute><ManageBooking></ManageBooking></AdminRoute>
+            },
+            {
+                path: 'all-user',
+                element: <AdminRoute><All_User></All_User></AdminRoute>
+            },
+            {
+                path: '/dashboard/updateItem/:id',
+                element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
+                loader: ({ params }) => fetch(`https://bistro-boss-server-beta-gold.vercel.app/${params.id}`)
+            },
+            //user routes
+            {
+                path: 'user-home',
+                element: <PrivateRoutes><UserHome></UserHome></PrivateRoutes>
+            },
+            {
+                path: 'myCart',
+                element: <PrivateRoutes><MyCart></MyCart></PrivateRoutes>
             },
             {
                 path: 'menu',
@@ -124,11 +129,6 @@ const router = createBrowserRouter([
             {
                 path: 'my-booking',
                 element: <PrivateRoutes><MyBooking></MyBooking></PrivateRoutes>
-            },
-            {
-                path: '/dashboard/updateItem/:id',
-                element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
-                loader: ({ params }) => fetch(`https://bistro-boss-server-beta-gold.vercel.app/${params.id}`)
             },
         ]
     }
