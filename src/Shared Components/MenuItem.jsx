@@ -1,5 +1,5 @@
 
-
+import PropTypes from 'prop-types';
 const MenuItem = ({item}) => {
     let {name,image,price,recipe} = item;
     return (
@@ -12,5 +12,8 @@ const MenuItem = ({item}) => {
             <p className="text-yellow-600">${price}</p>
         </div>
     )
+}
+MenuItem.propTypes = {
+    item: PropTypes.object,
 }
 export default MenuItem;

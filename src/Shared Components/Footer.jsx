@@ -1,12 +1,10 @@
-import { Link } from "react-router-dom";
-import { BsTwitter, BsLinkedin, BsFacebook } from 'react-icons/bs';
 import img1 from '../assets/logo.png'
 const Footer = () => {
     return (
         <footer className="footer p-10 bg-neutral text-neutral-content">
             <aside>
                 <img className="w-40" src={img1} alt="" />
-                <p>ACME Industries Ltd.<br />Providing reliable tech since 1992</p>
+                <p>Bistro Boss Restaurants Ltd.<br />Providing reliable tech since 1992</p>
             </aside>
             <nav>
                 <header className="footer-title">Social</header>

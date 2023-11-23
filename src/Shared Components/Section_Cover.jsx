@@ -1,5 +1,5 @@
 import { Parallax } from 'react-parallax';
-
+import PropTypes from 'prop-types';
 const Section_Cover = ({ img, title, desc }) => {
     return (
         <div className='mb-10'>
@@ -19,5 +19,10 @@ const Section_Cover = ({ img, title, desc }) => {
             </Parallax>
         </div>
     )
+}
+Section_Cover.propTypes = {
+    img: PropTypes.node,
+    title: PropTypes.string,
+    desc: PropTypes.string,
 }
 export default Section_Cover;

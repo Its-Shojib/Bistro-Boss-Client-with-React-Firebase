@@ -11,7 +11,7 @@ const Popular = () => {
         <div>
             <div className="grid grid-cols-1 md:grid-cols-2 w-10/12 mx-auto gap-10">
                 {
-                    popular.map(item => <MenuItem
+                    popular?.map(item => <MenuItem
                         key={item._id}
                         item={item}>
                     </MenuItem>)
