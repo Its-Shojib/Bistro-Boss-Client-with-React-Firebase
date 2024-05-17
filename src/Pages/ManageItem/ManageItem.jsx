@@ -43,7 +43,6 @@ const ManageItems = () => {
             <div className="w-10/12 mx-auto bg-white p-5">
                 <div className="overflow-x-auto">
                     <table className="table w-full">
-                        {/* head */}
                         <thead>
                             <tr className="bg-[#D1A054] text-xl rounded-md">
                                 <th>
@@ -94,8 +93,6 @@ const ManageItems = () => {
                                 </tr>)
                             }
                         </tbody>
-
-
                     </table>
                 </div>
             </div>
