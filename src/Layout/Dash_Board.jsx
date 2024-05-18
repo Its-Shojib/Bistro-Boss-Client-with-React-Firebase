@@ -10,7 +10,7 @@ const Dash_Board = () => {
     let [cart] = useCart()
     return (
         <div>
-            <div className="max-w-screen-xl mx-auto flex">
+            <div className="max-w-screen-2xl mx-auto flex">
                 <div className="w-64 min-h-screen bg-[#D1A054]">
                     <div className='text-center my-10'>
                         <h1 className='text-3xl font-bold'>Bistro Boss</h1>

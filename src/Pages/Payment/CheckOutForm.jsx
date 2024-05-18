@@ -1,5 +1,6 @@
+
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useCart from "../../Hooks/useCart";
 import useAuth from "../../Hooks/useAuth";
@@ -19,17 +20,31 @@ const CheckOutForm = () => {
 
     let axiosSecure = useAxiosSecure();
     let [cart, refetch] = useCart();
-    let totalPrice = cart.reduce((total, item) => total + item.price, 0)
+    let totalPrice = cart.reduce((total, item) => total + item.price, 0);
+
+    const currentPrice = useMemo(() => {
+        const date = new Date();
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const currentDayOfWeek = daysOfWeek[date.getDay()];
+
+        if (currentDayOfWeek === 'Saturday' || currentDayOfWeek === 'Friday') {
+            return totalPrice - (10 / 100) * totalPrice;
+        } else {
+            return totalPrice - (5 / 100) * totalPrice;
+        }
+    }, [totalPrice]);
+
+
 
     useEffect(() => {
-        if (totalPrice > 0) {
-            axiosSecure.post('/create-payment-intent', { price: totalPrice })
+        if (currentPrice > 0) {
+            axiosSecure.post('/create-payment-intent', { price: currentPrice })
                 .then(res => {
                     console.log(res.data?.clientSecret);
                     setClientSecet(res.data.clientSecret)
                 })
         }
-    }, [axiosSecure, totalPrice])
+    }, [axiosSecure, currentPrice])
 
     let handleSubmit = async (e) => {
         e.preventDefault();
@@ -75,12 +90,12 @@ const CheckOutForm = () => {
                 // now save the payment in the database
                 const payment = {
                     email: user.email,
-                    price: totalPrice,
+                    price: currentPrice,
                     transactionId: paymentIntent.id,
                     date: new Date(), // utc date convert. use moment js to 
                     cartIds: cart.map(item => item._id),
                     menuItemIds: cart.map(item => item.menuId),
-                    status: 'pending'
+                    status: 'Success'
                 }
 
                 axiosSecure.post('/payment', payment)

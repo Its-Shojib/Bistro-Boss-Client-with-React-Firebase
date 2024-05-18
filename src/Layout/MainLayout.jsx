@@ -8,13 +8,13 @@ const MainLayout = () => {
     let noHedFoot = location.pathname.includes('/login') || location.pathname.includes('/register');
     return (
         <div>
-            {noHedFoot || <div className="max-w-screen-xl mx-auto">
+            {noHedFoot || <div className="max-w-screen-2xl mx-auto">
                 <Navbar></Navbar>
             </div>}
-            <div className="max-w-screen-xl mx-auto">
+            <div className="max-w-screen-2xl mx-auto">
                 <Outlet></Outlet>
             </div>
-            {noHedFoot || <div className="max-w-screen-xl mx-auto">
+            {noHedFoot || <div className="max-w-screen-2xl mx-auto">
                 <Footer></Footer>
             </div>}
         </div>

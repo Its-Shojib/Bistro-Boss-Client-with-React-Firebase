@@ -4,12 +4,40 @@ import useCart from './../../Hooks/useCart';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { Link } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
 const MyCart = () => {
     let [cart, refetch] = useCart();
+    let [discount, setDiscount] = useState(0)
     let axiosSecure = useAxiosSecure()
+    let [weekDay, setWeekDay] = useState('');
     let totalPrice = cart.reduce((acumulator, currentItem) => {
         return acumulator + currentItem.price;
     }, 0)
+
+    const currentPrice = useMemo(() => {
+        const date = new Date();
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const currentDayOfWeek = daysOfWeek[date.getDay()];
+        setWeekDay(currentDayOfWeek);
+
+        if (currentDayOfWeek === 'Saturday' || currentDayOfWeek === 'Friday') {
+            return totalPrice - (10 / 100) * totalPrice;
+        } else {
+            return totalPrice - (5 / 100) * totalPrice;
+        }
+    }, [totalPrice]);
+
+    useEffect(() => {
+        const date = new Date();
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const currentDayOfWeek = daysOfWeek[date.getDay()];
+
+        if (currentDayOfWeek === 'Saturday' || currentDayOfWeek === 'Friday') {
+            setDiscount(10);
+        } else {
+            setDiscount(5);
+        }
+    }, []);
 
     let handleDeleteItem = (id) => {
         Swal.fire({
@@ -33,9 +61,6 @@ const MyCart = () => {
                             refetch();
                         }
                     })
-
-
-
             }
         });
     }
@@ -46,14 +71,23 @@ const MyCart = () => {
             </section>
 
             <section>
-                <div className='w-10/12 mx-auto bg-base-100 p-10'>
-                    <div className='flex justify-between'>
+                <div className='w-11/12 mx-auto bg-base-100 p-10'>
+                    <div className='flex justify-center items-center gap-20 pb-10 font-semibold'>
+                        <div className='bg-emerald-950 text-white text-2xl rounded-md p-5'>
+                            Day: {weekDay}
+                        </div>
+                        <div className='bg-blue-950 text-white text-2xl rounded-md p-5'>
+                            Discount: {discount}%
+                        </div>
+                    </div>
+                    <div className='flex justify-between items-center gap-5'>
                         <h1 className='text-2xl font-bold'>Total Order: {cart.length}</h1>
                         <h2 className='text-2xl font-bold'>Total Price: ${totalPrice}</h2>
+                        <h2 className='text-2xl font-bold'>Discounted Price: ${currentPrice}</h2>
                         {
                             cart.length > 0 ? <Link to='/dashboard/payment'>
-                                <button className='btn bg-[#D1A054] '>Pay</button>
-                            </Link> : <button disabled className='btn bg-[#D1A054] '>Pay</button>
+                                <button className='btn bg-[#D1A054] text-white '>Pay Now</button>
+                            </Link> : <button disabled className='btn bg-[#D1A054] text-white'>Pay Now</button>
                         }
                     </div>
                     <div className="overflow-x-auto my-10">
