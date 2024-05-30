@@ -26,6 +26,7 @@ import UpdateItem from "../Pages/UpdateItem/UpdateItem";
 import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import AdminHome from "../Pages/AdminHome/AdminHome";
 import UserHome from "../Pages/UserHome/UserHome";
+import AddNewOffer from "../Pages/Add Offer/AddNewOffer";
 
 const router = createBrowserRouter([
     {
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
                 element: <AdminRoute><ManageItem></ManageItem></AdminRoute>
             },
             {
+                path: 'add-new-offer',
+                element: <AdminRoute><AddNewOffer></AddNewOffer></AdminRoute>
+            },
+            {
                 path: 'manage-booking',
                 element: <AdminRoute><ManageBooking></ManageBooking></AdminRoute>
             },
@@ -87,7 +92,7 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/updateItem/:id',
                 element: <AdminRoute><UpdateItem></UpdateItem></AdminRoute>,
-                loader: ({ params }) => fetch(`https://bistro-boss-server-beta-gold.vercel.app/${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/${params.id}`)
             },
             //user routes
             {

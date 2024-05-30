@@ -18,7 +18,7 @@ const AdminHome = () => {
     return (
         <div>
             <Section_Title title={`${user.displayName}`} subTitle={'Welcome Back'}></Section_Title>
-            <div className="w-10/12 mx-auto grid grid-cols-4 gap-10 text-2xl">
+            <div className="w-11/12 mx-auto grid grid-cols-4 gap-10 text-2xl">
                 <div className="bg-[#BB34F5] p-5 text-white rounded-xl">Revenue: ${stats?.revenue}</div>
                 <div className="bg-[#D3A256] p-5 text-white rounded-xl">Users: {stats?.users}</div>
                 <div className="bg-[#FE4880] p-5 text-white rounded-xl">Products: {stats?.menuItems}</div>

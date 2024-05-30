@@ -1,5 +1,5 @@
 
-import { FaBook, FaCalendar, FaCartArrowDown, FaHome, FaPaypal, FaRecordVinyl } from 'react-icons/fa';
+import { FaBook, FaCalendar, FaCartArrowDown, FaHome, FaPaypal, FaRecordVinyl, FaSave } from 'react-icons/fa';
 import { NavLink, Outlet } from 'react-router-dom';
 import useAdmin from '../Hooks/useAdmin';
 import useCart from '../Hooks/useCart';
@@ -24,6 +24,8 @@ const Dash_Board = () => {
                                 <li><NavLink to='/dashboard/add-item'><FaCalendar></FaCalendar> Add Item</NavLink></li>
 
                                 <li><NavLink to='/dashboard/manage-item'><FaPaypal></FaPaypal>Manage Item</NavLink></li>
+
+                                <li><NavLink to='/dashboard/add-new-offer'><FaSave></FaSave>Add New Offer</NavLink></li>
 
                                 <li><NavLink to='/dashboard/manage-booking' ><FaCartArrowDown></FaCartArrowDown>Manage Booking</NavLink></li>
 
