@@ -10,7 +10,6 @@ const useGetPayInfo = () => {
         queryKey: ['payinfo', user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/payinfo/${user?.email}`);
-            console.log(res.data);
             return res.data;
         }
     })

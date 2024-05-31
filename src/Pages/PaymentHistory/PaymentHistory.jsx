@@ -41,8 +41,6 @@ const PaymentHistory = () => {
         } else {
             return toast.error('Something Went Wrong!');
         }
-
-
     }
 
     return (

@@ -51,7 +51,6 @@ const ItemCart = () => {
             getFreeAmount:item.getFreeAmount,
             freeItems,
         }
-        console.log(payinfo);
         let res = await axiosSecure.post('/add/payinfo', payinfo);
         if(res.data.result){
             goto('/dashboard/payment');

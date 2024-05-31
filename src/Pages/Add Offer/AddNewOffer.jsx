@@ -16,8 +16,6 @@ const AddNewOffer = () => {
     const filteredItems = menu.filter(item => item.category === watchFoodType);
 
     const onSubmit = async (data) => {
-        console.log(data);
-
         try {
             const res = await axiosSecure.put('/add-offer', data);
             if (res.data.result) {
