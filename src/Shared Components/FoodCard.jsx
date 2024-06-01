@@ -7,12 +7,8 @@ import 'animate.css';
 import useCart from '../Hooks/useCart';
 
 const FoodCard = ({ item }) => {
-    let { name, image, price, recipe, _id, offerType, offer } = item;
-    let offeredPrice = 0;
-    if(offerType === 'percentage'){
-       let persent = price - (price * offer / 100);
-       offeredPrice = persent.toFixed(2);
-    }
+    let { name, image, price, recipe, _id, offerType, offer, buyAmount,getFreeAmount, category } = item;
+    let offeredPrice = offer.toFixed(2);
 
     let { user } = useAuth();
     let navigate = useNavigate();
@@ -27,8 +23,13 @@ const FoodCard = ({ item }) => {
                 email: user?.email,
                 name,
                 image,
+                category,
                 price,
-                recipe,
+                offerType, 
+                offer, 
+                buyAmount,
+                getFreeAmount,
+                recipe
             }
             axiosSecure.post('/carts', cartItem)
                 .then(res => {
@@ -75,17 +76,17 @@ const FoodCard = ({ item }) => {
             <figure className="px-10 pt-10">
                 <img src={image} alt="Shoes" className="rounded-xl" />
             </figure>
-            <p className={`absolute right-14 ${offerType=='percentage'? 'bg-red-800 line-through':'bg-black'} p-2 rounded text-lg top-12 text-white `}>$ {price}</p>
+            <p className={`absolute right-14 ${offerType == 'percentage' ? 'bg-red-800 line-through' : 'bg-black'} p-2 rounded text-lg top-12 text-white `}>$ {price}</p>
             {
                 offerType === 'percentage' && <><p className="absolute text-lg right-14 bg-green-800 p-2 rounded top-24 text-white">$ {offeredPrice}</p>
-                <p className='text-xl bg-yellow-900 text-white rounded-full absolute p-5 top-[56px] left-[56px]'>Off {offer}%</p>
+                    <p className='text-xl bg-yellow-900 text-white rounded-full absolute p-5 top-[56px] left-[56px]'>Off {buyAmount}%</p>
                 </>
             }
             <div className="card-body items-center text-center ">
                 <h2 className="card-title">{name}</h2>
                 <p>{recipe}</p>
                 {
-                    offerType === 'buyOffer' && <p className="bg-green-900 text-white p-2 rounded-md absolute top-56 text-lg">Buy {offer} Get 1 Free</p>
+                    offerType === 'buyOffer' && <p className="bg-green-900 text-white p-2 rounded-md absolute top-56 text-lg">Buy {buyAmount} Get {getFreeAmount} Free</p>
                 }
                 <div className="card-actions">
                     <button onClick={() => handleAddToCart()}

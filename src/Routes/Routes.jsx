@@ -27,6 +27,7 @@ import PaymentHistory from "../Pages/PaymentHistory/PaymentHistory";
 import AdminHome from "../Pages/AdminHome/AdminHome";
 import UserHome from "../Pages/UserHome/UserHome";
 import AddNewOffer from "../Pages/Add Offer/AddNewOffer";
+import ItemCart from "../Pages/Payment/ItemCart";
 
 const router = createBrowserRouter([
     {
@@ -134,6 +135,11 @@ const router = createBrowserRouter([
             {
                 path: 'my-booking',
                 element: <PrivateRoutes><MyBooking></MyBooking></PrivateRoutes>
+            },
+            {
+                path: 'myCart/cart/item/:id',
+                element: <PrivateRoutes><ItemCart></ItemCart></PrivateRoutes>,
+                loader: ({ params }) => fetch(`http://localhost:5000/cart/item/${params.id}`)
             },
         ]
     }

@@ -1,11 +1,11 @@
 
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
-import useCart from "../../Hooks/useCart";
 import useAuth from "../../Hooks/useAuth";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import useGetPayInfo from "../../Hooks/useGetPayInfo";
 
 
 const CheckOutForm = () => {
@@ -19,32 +19,28 @@ const CheckOutForm = () => {
     let goto = useNavigate();
 
     let axiosSecure = useAxiosSecure();
-    let [cart, refetch] = useCart();
-    let totalPrice = cart.reduce((total, item) => total + item.price, 0);
+    let [payInfo, refetch] = useGetPayInfo();
 
-    const currentPrice = useMemo(() => {
-        const date = new Date();
-        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        const currentDayOfWeek = daysOfWeek[date.getDay()];
+    // const currentPrice = useMemo(() => {
+    //     const date = new Date();
+    //     const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    //     const currentDayOfWeek = daysOfWeek[date.getDay()];
 
-        if (currentDayOfWeek === 'Saturday' || currentDayOfWeek === 'Friday') {
-            return totalPrice - (10 / 100) * totalPrice;
-        } else {
-            return totalPrice - (5 / 100) * totalPrice;
-        }
-    }, [totalPrice]);
-
-
+    //     if (currentDayOfWeek === 'Saturday' || currentDayOfWeek === 'Friday') {
+    //         return totalPrice - (10 / 100) * totalPrice;
+    //     } else {
+    //         return totalPrice - (5 / 100) * totalPrice;
+    //     }
+    // }, [totalPrice]);
 
     useEffect(() => {
-        if (currentPrice > 0) {
-            axiosSecure.post('/create-payment-intent', { price: currentPrice })
+        if (payInfo?.totalPrice > 0) {
+            axiosSecure.post('/create-payment-intent', { price: payInfo?.totalPrice })
                 .then(res => {
-                    console.log(res.data?.clientSecret);
                     setClientSecet(res.data.clientSecret)
                 })
         }
-    }, [axiosSecure, currentPrice])
+    }, [axiosSecure, payInfo.totalPrice])
 
     let handleSubmit = async (e) => {
         e.preventDefault();
@@ -90,23 +86,25 @@ const CheckOutForm = () => {
                 // now save the payment in the database
                 const payment = {
                     email: user.email,
-                    price: currentPrice,
+                    price: payInfo?.totalPrice,
                     transactionId: paymentIntent.id,
-                    date: new Date(), // utc date convert. use moment js to 
-                    cartIds: cart.map(item => item._id),
-                    menuItemIds: cart.map(item => item.menuId),
+                    date: new Date(),
+                    itemId: payInfo.id,
+                    quantity: payInfo?.quantity,
+                    offerType: payInfo.offerType,
+                    buyAmount: payInfo.buyAmount,
+                    freeItems: payInfo?.freeItems,
                     status: 'Success'
                 }
 
                 axiosSecure.post('/payment', payment)
                     .then(res => {
-                        console.log(res.data);
                         refetch();
                         if (res.data?.paymentResult?.insertedId) {
                             Swal.fire({
                                 position: "top-middle",
                                 icon: "success",
-                                title: "Thank you for the taka paisa",
+                                title: "Thank You! Payment Successfull",
                                 showConfirmButton: false,
                                 timer: 1500
                             });
