@@ -4,8 +4,8 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Section_Title from './../../Shared Components/Section_Title';
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import Swal from "sweetalert2";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PaymentHistory = () => {
     const { user } = useAuth();
@@ -29,31 +29,17 @@ const PaymentHistory = () => {
     }
     let handleReturnSubmit = async (data) => {
         if (data.amount < 0 || data.amount > maxreturn) {
-            return Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Please Enter Valid Amount'
-            })
+            return toast.warn('Enter Valid Amount!');
         }
         let returnRequest = {
-            requestedAmount: data.amount,
+            requestedAmount: parseInt(data.amount),
             payment: paymentInfo,
         }
         let res = await axiosSecure.post('/returned-request', returnRequest);
-        if(res.data.result){
-            Swal.fire({
-                icon:'success',
-                title: 'Success!',
-                text: `${res.data.message}`,
-                confirmButtonText: 'Cool'
-            });
-        }else{
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: `${res.data.message}`,
-                confirmButtonText: 'Cool'
-            });
+        if (res.data.result) {
+            return toast.success('Request Send Successfully!');
+        } else {
+            return toast.error('Something Went Wrong!');
         }
 
 
@@ -63,32 +49,44 @@ const PaymentHistory = () => {
         <div>
             <Section_Title title={'Here are payment'} subTitle={'Payment History'}></Section_Title>
             <h2 className="text-3xl text-center">Total Payments: {payments.length}</h2>
-            <div className="w-10/12 mx-auto my-5">
+            <div className="w-11/12 mx-auto my-5">
                 <div className="overflow-x-auto">
                     <table className="table table-zebra">
                         {/* head */}
                         <thead className="text-center">
                             <tr>
                                 <th>#</th>
-                                <th>Price</th>
-                                <th>Transaction Id</th>
-                                <th>Quantity</th>
                                 <th>Date</th>
-                                <th>Status</th>
+                                <th>Price</th>
+                                {/* <th>Transaction Id</th> */}
+                                <th>Offer Type</th>
+                                <th>Threshold</th>
+                                <th>Quantity</th>
+                                <th>Bonus</th>
+                                <th>Returned</th>
+                                <th>Returned Price</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody className="text-center ">
                             {payments.map((payment, index) => <tr className="space-y-2" key={payment._id}>
                                 <th>{index + 1}</th>
-                                <td>${payment.price.toFixed(2)}</td>
-                                <td>{payment.transactionId}</td>
-                                <td>{payment.quantity}</td>
-                                <td>{payment.date.split('T')[0]}</td>
-                                <td>{payment.status}</td>
-                                <td
-                                    onClick={() => handleReturn(payment)}
-                                    className="btn btn-outline">Return</td>
+                                <td>{payment?.date.split('T')[0]}</td>
+                                <td>${payment?.price.toFixed(2)}</td>
+
+                                {/* <td>{payment?.transactionId}</td> */}
+                                <td>{payment?.offerType}</td>
+                                <td>{payment?.buyAmount}{payment.offerType == 'percentage' ? '%' : ''}</td>
+                                <td>{payment?.quantity}</td>
+                                <td>{payment?.freeItems}</td>
+                                <td>{payment?.itemReturned || 0}</td>
+                                <td>{payment?.priceBack || 0}</td>
+                                <td>
+                                    <button onClick={() => handleReturn(payment)}
+                                        disabled={payment.returned ? true : false}
+                                        className="btn btn-outline"
+                                    >{payment.returned ? 'Returned' : 'Return'}</button>
+                                </td>
                             </tr>)}
 
                         </tbody>
@@ -119,6 +117,18 @@ const PaymentHistory = () => {
                     </div>
                 </dialog>
             </div>
+            <ToastContainer
+                position="top-center"
+                autoClose={1500}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="dark"
+                transition:Zoom />
         </div>
     );
 }

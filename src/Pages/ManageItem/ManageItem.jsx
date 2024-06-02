@@ -42,7 +42,7 @@ const ManageItems = () => {
             <Section_Title title="Manage All Items" subTitle="Hurry up"></Section_Title>
             <div className="w-10/12 mx-auto bg-white p-5">
                 <div className="overflow-x-auto">
-                    <table className="table w-full">
+                    <table className="table w-full table-zebra text-center">
                         <thead>
                             <tr className="bg-[#D1A054] text-xl rounded-md">
                                 <th>
@@ -50,7 +50,9 @@ const ManageItems = () => {
                                 </th>
                                 <th>Image</th>
                                 <th>Item Name</th>
+                                <th>Category</th>
                                 <th>Price</th>
+                                <th>Total Product</th>
                                 <th>Update</th>
                                 <th>Delete</th>
                             </tr>
@@ -73,7 +75,13 @@ const ManageItems = () => {
                                     <td>
                                         {item.name}
                                     </td>
-                                    <td className="text-right">${item.price}</td>
+                                    <td>
+                                        {item.category}
+                                    </td>
+                                    <td>${item.price}</td>
+                                    <td>
+                                        {item.totalProduct}
+                                    </td>
                                     <td>
                                         <Link to={`/dashboard/updateItem/${item._id}`}>
                                             <button

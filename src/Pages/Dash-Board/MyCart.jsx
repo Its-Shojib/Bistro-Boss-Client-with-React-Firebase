@@ -3,7 +3,7 @@ import Section_Title from './../../Shared Components/Section_Title';
 import useCart from './../../Hooks/useCart';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const MyCart = () => {
     let [cart, refetch] = useCart();
@@ -85,11 +85,11 @@ const MyCart = () => {
                         <h1 className='text-2xl font-bold'>Total Order: {cart.length}</h1>
                         <h2 className='text-2xl font-bold'>Total Price: ${totalPrice}</h2>
                         {/* <h2 className='text-2xl font-bold'>Discounted Price: ${currentPrice.toFixed(2)}</h2> */}
-                        {
+                        {/* {
                             cart.length > 0 ? <Link to='/dashboard/payment'>
                                 <button className='btn bg-[#D1A054] text-white '>Pay Now</button>
                             </Link> : <button disabled className='btn bg-[#D1A054] text-white'>Pay Now</button>
-                        }
+                        } */}
                     </div>
                     <div className="overflow-x-auto my-10">
                         <table className="table table-zebra">

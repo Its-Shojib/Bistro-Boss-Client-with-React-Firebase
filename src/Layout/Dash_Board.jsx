@@ -1,5 +1,5 @@
 
-import { FaBook, FaCalendar, FaCartArrowDown, FaHome, FaPaypal, FaRecordVinyl, FaSave } from 'react-icons/fa';
+import { FaBook, FaCalendar, FaCartArrowDown, FaHome, FaPaypal, FaPiggyBank, FaRecordVinyl, FaUsers } from 'react-icons/fa';
 import { NavLink, Outlet } from 'react-router-dom';
 import useAdmin from '../Hooks/useAdmin';
 import useCart from '../Hooks/useCart';
@@ -25,11 +25,11 @@ const Dash_Board = () => {
 
                                 <li><NavLink to='/dashboard/manage-item'><FaPaypal></FaPaypal>Manage Item</NavLink></li>
 
-                                <li><NavLink to='/dashboard/add-new-offer'><FaSave></FaSave>Add New Offer</NavLink></li>
+                                <li><NavLink to='/dashboard/add-new-offer'><FaPiggyBank></FaPiggyBank>Add New Offer</NavLink></li>
 
                                 <li><NavLink to='/dashboard/return-request' ><FaCartArrowDown></FaCartArrowDown>Return Request</NavLink></li>
 
-                                <li><NavLink to='/dashboard/all-user' ><FaRecordVinyl></FaRecordVinyl>All User</NavLink></li>
+                                <li><NavLink to='/dashboard/all-user' ><FaUsers></FaUsers>All User</NavLink></li>
                             </ul>
                         </> : <>
                             <ul className='menu flex flex-col mt-10 px-6 space-y-3'>

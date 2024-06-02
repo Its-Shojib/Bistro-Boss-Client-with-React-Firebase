@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Section_Title from "../../Shared Components/Section_Title";
+import Swal from "sweetalert2";
 
 
 const ManageReturn = () => {
     let axiosSecure = useAxiosSecure();
-    const { data: requests = [], isPending } = useQuery({
+    const { data: requests = [], isPending, refetch } = useQuery({
         queryKey: ['return-request'],
         queryFn: async () => {
             const res = await axiosSecure.get(`/get-return-request`);
@@ -13,16 +14,41 @@ const ManageReturn = () => {
         }
     });
 
-    console.log(requests);
 
-    let handleReturnConfirm = (data)=>{
-        console.log(data);
+    let handleReturnConfirm = (data) => {
+        Swal.fire({
+            title: "Are you sure to Confirm?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Confirm It!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                let res = await axiosSecure.put('/returned-confirm', data)
+                if (res.data.result) {
+                    Swal.fire({
+                        title: "Returned!",
+                        text: "Product has been returned.",
+                        icon: "success"
+                    });
+                    refetch();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!',
+                    })
+                }
+            }
+        });
     }
 
 
 
     return (
-        <div className="w-full md:w-11/12 mx-auto">
+        <div className="w-full mx-auto">
             <Section_Title title={'Manage Requsts'} subTitle={'Product Return'}></Section_Title>
             {
                 isPending ? <div className="h-screen flex justify-center items-center">
@@ -40,8 +66,10 @@ const ManageReturn = () => {
                                     <th>Price</th>
                                     <th>OfferType</th>
                                     <th>Threshold</th>
-                                    <th>Free Item</th>
-                                    <th>Return Amount</th>
+                                    <th>Free</th>
+                                    <th>Return Requst</th>
+                                    <th>Price Back</th>
+                                    <th>Returned</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -51,14 +79,19 @@ const ManageReturn = () => {
                                     <td>{request?.payment?.email}</td>
                                     <td>{request?.payment?.date.split('T')[0]}</td>
                                     <td>{request?.payment?.quantity}</td>
-                                    <td>{request?.payment?.price}</td>
+                                    <td>${request?.payment?.price.toFixed(2)}</td>
                                     <td>{request?.payment?.offerType}</td>
-                                    <td>{request?.payment?.buyAmount}{request.payment.offerType == 'percentage'? '%': ''}</td>
+                                    <td>{request?.payment?.buyAmount}{request.payment.offerType == 'percentage' ? '%' : ''}</td>
                                     <td>{request?.payment?.freeItems}</td>
                                     <td>{request?.requestedAmount}</td>
-                                    <td
-                                        onClick={() => handleReturnConfirm(request)}
-                                        className="btn btn-outline">Confirm</td>
+                                    <td>${request?.priceBack}</td>
+                                    <td>{request?.itemReturned}</td>
+                                    <td>
+                                        <button onClick={() => handleReturnConfirm(request)}
+                                        disabled={request.returned ? true : false}
+                                            className="btn btn-outline"
+                                        >{request.returned ? 'Returned' : 'Confirm'}</button>
+                                    </td>
                                 </tr>)}
 
                             </tbody>

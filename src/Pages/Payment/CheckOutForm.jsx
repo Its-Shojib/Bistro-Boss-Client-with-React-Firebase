@@ -93,6 +93,7 @@ const CheckOutForm = () => {
                     quantity: payInfo?.quantity,
                     offerType: payInfo.offerType,
                     buyAmount: payInfo.buyAmount,
+                    getFreeAmount: payInfo?.getFreeAmount,
                     freeItems: payInfo?.freeItems,
                     status: 'Success',
                     returned: false

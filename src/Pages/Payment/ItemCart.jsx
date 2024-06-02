@@ -33,6 +33,13 @@ const ItemCart = () => {
     }, [quantity, item]);
 
     const handlePayNow = async() => {
+        if(quantity+freeItems> item.totalProduct){
+            return Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'You can not buy more than available product',
+            })
+        }
         
         let payinfo = {
             email: user.email,
@@ -41,6 +48,7 @@ const ItemCart = () => {
             quantity,
             offerType: item.offerType,
             buyAmount: item.buyAmount,
+            getFreeAmount:item.getFreeAmount,
             freeItems,
         }
         console.log(payinfo);
