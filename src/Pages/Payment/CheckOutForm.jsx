@@ -94,7 +94,8 @@ const CheckOutForm = () => {
                     offerType: payInfo.offerType,
                     buyAmount: payInfo.buyAmount,
                     freeItems: payInfo?.freeItems,
-                    status: 'Success'
+                    status: 'Success',
+                    returned: false
                 }
 
                 axiosSecure.post('/payment', payment)

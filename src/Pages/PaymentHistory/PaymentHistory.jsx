@@ -78,10 +78,10 @@ const PaymentHistory = () => {
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody className="text-center">
-                            {payments.map((payment, index) => <tr key={payment._id}>
+                        <tbody className="text-center ">
+                            {payments.map((payment, index) => <tr className="space-y-2" key={payment._id}>
                                 <th>{index + 1}</th>
-                                <td>${payment.price}</td>
+                                <td>${payment.price.toFixed(2)}</td>
                                 <td>{payment.transactionId}</td>
                                 <td>{payment.quantity}</td>
                                 <td>{payment.date.split('T')[0]}</td>

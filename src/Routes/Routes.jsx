@@ -13,7 +13,6 @@ import PrivateRoutes from './PrivateRoutes';
 import All_User from "../Pages/Dash-Board/All_User";
 import AddItem from './../Pages/AddItem/AddItem';
 import ManageItem from './../Pages/ManageItem/ManageItem';
-import ManageBooking from './../Pages/ManageBooking/ManageBooking';
 import Menu from './../Pages/Menu/Menu';
 import Shop from './../Pages/Shop/Shop';
 import Contact from './../Pages/Contact/Contact';
@@ -28,6 +27,7 @@ import AdminHome from "../Pages/AdminHome/AdminHome";
 import UserHome from "../Pages/UserHome/UserHome";
 import AddNewOffer from "../Pages/Add Offer/AddNewOffer";
 import ItemCart from "../Pages/Payment/ItemCart";
+import ManageReturn from "../Pages/ManageReturn/ManageReturn";
 
 const router = createBrowserRouter([
     {
@@ -83,8 +83,8 @@ const router = createBrowserRouter([
                 element: <AdminRoute><AddNewOffer></AddNewOffer></AdminRoute>
             },
             {
-                path: 'manage-booking',
-                element: <AdminRoute><ManageBooking></ManageBooking></AdminRoute>
+                path: 'return-request',
+                element: <AdminRoute><ManageReturn></ManageReturn></AdminRoute>
             },
             {
                 path: 'all-user',

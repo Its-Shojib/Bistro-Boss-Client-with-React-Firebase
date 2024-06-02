@@ -27,7 +27,7 @@ const Dash_Board = () => {
 
                                 <li><NavLink to='/dashboard/add-new-offer'><FaSave></FaSave>Add New Offer</NavLink></li>
 
-                                <li><NavLink to='/dashboard/manage-booking' ><FaCartArrowDown></FaCartArrowDown>Manage Booking</NavLink></li>
+                                <li><NavLink to='/dashboard/return-request' ><FaCartArrowDown></FaCartArrowDown>Return Request</NavLink></li>
 
                                 <li><NavLink to='/dashboard/all-user' ><FaRecordVinyl></FaRecordVinyl>All User</NavLink></li>
                             </ul>
