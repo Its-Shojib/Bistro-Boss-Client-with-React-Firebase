@@ -62,11 +62,12 @@ const ManageReturn = () => {
                                     <th>Index</th>
                                     <th>Email</th>
                                     <th>Date</th>
-                                    <th>Quantity</th>
                                     <th>Price</th>
                                     <th>OfferType</th>
                                     <th>Threshold</th>
-                                    <th>Free</th>
+                                    <th>Free Item</th>
+                                    <th>Quantity</th>
+                                    <th>Bonus</th>
                                     <th>Return Requst</th>
                                     <th>Price Back</th>
                                     <th>Returned</th>
@@ -78,10 +79,11 @@ const ManageReturn = () => {
                                     <th>{index + 1}</th>
                                     <td>{request?.payment?.email}</td>
                                     <td>{request?.payment?.date.split('T')[0]}</td>
-                                    <td>{request?.payment?.quantity}</td>
                                     <td>${request?.payment?.price.toFixed(2)}</td>
                                     <td>{request?.payment?.offerType}</td>
                                     <td>{request?.payment?.buyAmount}{request.payment.offerType == 'percentage' ? '%' : ''}</td>
+                                    <td>{request?.payment?.getFreeAmount}</td>
+                                    <td>{request?.payment?.quantity}</td>
                                     <td>{request?.payment?.freeItems}</td>
                                     <td>{request?.requestedAmount}</td>
                                     <td>${request?.priceBack}</td>

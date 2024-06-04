@@ -59,6 +59,7 @@ const PaymentHistory = () => {
                                 {/* <th>Transaction Id</th> */}
                                 <th>Offer Type</th>
                                 <th>Threshold</th>
+                                <th>Get Free</th>
                                 <th>Quantity</th>
                                 <th>Bonus</th>
                                 <th>Returned</th>
@@ -75,6 +76,7 @@ const PaymentHistory = () => {
                                 {/* <td>{payment?.transactionId}</td> */}
                                 <td>{payment?.offerType}</td>
                                 <td>{payment?.buyAmount}{payment.offerType == 'percentage' ? '%' : ''}</td>
+                                <td>{payment?.getFreeAmount}</td>
                                 <td>{payment?.quantity}</td>
                                 <td>{payment?.freeItems}</td>
                                 <td>{payment?.itemReturned || 0}</td>

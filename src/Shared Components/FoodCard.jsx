@@ -90,7 +90,7 @@ const FoodCard = ({ item }) => {
                 }
                 <div className="card-actions">
                     <button onClick={() => handleAddToCart()}
-                        className="btn btn-outline text-yellow-500 border-0 border-b-2">Add to Cart</button>
+                        className="btn btn-outline text-yellow-600 border-0 border-b-2">Add to Cart</button>
                 </div>
             </div>
         </div>
